@@ -1,0 +1,9 @@
+Welcome. 
+
+Please, follow the intructions to run the serve and see my little test in graphql.
+
+1st: Open de console and write the following command:  npm i
+2nd: In the console put: npm start.
+3th: go to localhost:3045/graphqlTest
+
+When you followed the steps, you can se the Docs to add a little users with the parameters : firstname, lastname, age and occupation.
