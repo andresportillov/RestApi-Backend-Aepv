@@ -7,3 +7,5 @@ Please, follow the intructions to run the serve and see my little test in graphq
 3th: go to localhost:3045/graphqlTest
 
 When you followed the steps, you can se the Docs to add a little users with the parameters : firstname, lastname, age and occupation.
+
+Now
