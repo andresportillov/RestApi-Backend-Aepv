@@ -13,7 +13,7 @@ export const resolvers = {
                 if (_id) query._id = _id;
                 if (isOnline) query.isOnline = isOnline;
                 if (email) query.email = email;
-                if (password) query._id = password;
+                if (password) query.password = password;
             }
             const Users = await User.find(query);
             return Users
