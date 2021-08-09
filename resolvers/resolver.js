@@ -5,7 +5,7 @@ import { GraphQLDateTime } from 'graphql-iso-date';
 
 export const resolvers = {
     Query: {
-        Users: async(data) => {
+        Users: async(_, {data}) => {
             const query = {};
             console.log('data: ', data);
             if (data) {
