@@ -5,9 +5,8 @@ import { GraphQLDateTime } from 'graphql-iso-date';
 
 export const resolvers = {
     Query: {
-        Users: async(_, {data}) => {
+        Users: async(_, { data }) => {
             const query = {};
-            console.log('data: ', data);
             if (data) {
                 const { _id, isOnline, email, password } = data;
                 if (_id) query._id = _id;
@@ -20,17 +19,33 @@ export const resolvers = {
         },
         Posts: async() => {
             const query = {};
-            const Posts = await Post.find(query).sort({ posted: -1 });
+            const Posts = await Post.aggregate([
+                { $match: query },
+                {
+                    $lookup: {
+                        from: 'users',
+                        localField: 'userId',
+                        foreignField: '_id',
+                        as: 'user'
+                    }
+                },
+                { $unwind: '$user' },
+                { $sort: { posted: -1 } }
+            ]);
             return Posts
         }
     },
     Mutation: {
         async createUser(_, { input }) {
-            input._id = generateId(18);
-            const newUser = new User(input);
-            await newUser.save();
-            console.log('User Created');
-            return newUser
+            try {
+                input._id = generateId(18);
+                const newUser = new User(input);
+                await newUser.save();
+                console.log('User Created');
+                return newUser
+            } catch (e) {
+                console.log(e);
+            }
         },
         async deleteUser(_, { _id }) {
             try {
@@ -42,8 +57,7 @@ export const resolvers = {
         },
         async updateUser(_, { _id, input }) {
             try {
-                console.log(_id);
-                return await User.findOneAndUpdate(_id, input, { new: true })
+                return await User.findOneAndUpdate({ _id: _id }, input, { new: true })
             } catch (e) {
                 console.log(e);
             }
