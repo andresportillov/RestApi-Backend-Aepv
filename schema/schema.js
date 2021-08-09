@@ -21,12 +21,13 @@ const typeDefs = `
         posted: ISODate
     }
     input UserInput {
-        firstname: String!
-        email: String!
+        firstname: String
+        email: String
         lastname: String
         age: String
         occupation: String
-        password: String!
+        password: String
+        isOnline: Boolean
     }
     input UserFilter {
         _id: ID
@@ -34,6 +35,7 @@ const typeDefs = `
         firstname: String
         email: String
         password: String
+        isOnline: Boolean
     }
     input PostFilter {
         _id: ID
