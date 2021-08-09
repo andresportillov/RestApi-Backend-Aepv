@@ -13,12 +13,14 @@ const typeDefs = `
         email: String
         occupation: String
         password: String
+        isOnline: Boolean
     } 
     type Post {
         _id: ID
         message: String
         userId: String
         posted: ISODate
+        user: User
     }
     input UserInput {
         firstname: String
@@ -31,7 +33,6 @@ const typeDefs = `
     }
     input UserFilter {
         _id: ID
-        isOnline: Boolean
         firstname: String
         email: String
         password: String
@@ -44,7 +45,7 @@ const typeDefs = `
     }
     input PostInput {
         message: String!
-        userId: String
+        userId: String!
     }
     type Query {
         Users(data: UserFilter): [User]
